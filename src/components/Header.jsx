@@ -15,7 +15,8 @@ import {
    NavbarBrand,
    UncontrolledDropdown
    } from 'reactstrap';
-
+   
+import {onLogout} from '../actions/index.js'
 class Header extends Component {
 
    state = {
@@ -58,9 +59,13 @@ class Header extends Component {
                           <DropdownItem>Cart</DropdownItem>
                       </NavLink>
 
+                      <NavLink tag={Link} to="/carts">
+                          <DropdownItem>Cart</DropdownItem>
+                      </NavLink>
+
                       <DropdownItem divider />
 
-                      <DropdownItem onClick={this.props.onLogoutUser}>
+                      <DropdownItem onClick={this.props.onLogout}>
                           Logout
                       </DropdownItem>
 
@@ -93,4 +98,4 @@ let mapStateToProps = state => {
    }
 }
  
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps, {onLogout})(Header)

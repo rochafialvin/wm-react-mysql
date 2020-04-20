@@ -15,6 +15,7 @@ class Login extends Component {
 
             let {_id, username} = res.data
 
+            
             this.props.onLogin({_id, username})
          })
          .catch(err => console.log(err))
