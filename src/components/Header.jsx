@@ -55,12 +55,12 @@ class Header extends Component {
                           <DropdownItem> Manage Product</DropdownItem>
                       </NavLink>
 
-                      <NavLink tag={Link} to="/carts">
-                          <DropdownItem>Cart</DropdownItem>
+                      <NavLink tag={Link} to="/profile">
+                          <DropdownItem>Profile</DropdownItem>
                       </NavLink>
 
-                      <NavLink tag={Link} to="/carts">
-                          <DropdownItem>Cart</DropdownItem>
+                      <NavLink tag={Link} to="/editprofile">
+                          <DropdownItem>Edit Profile</DropdownItem>
                       </NavLink>
 
                       <DropdownItem divider />

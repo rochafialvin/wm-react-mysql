@@ -8,6 +8,8 @@ import Header from './Header';
 import Register from './Register'
 import Login from './Login'
 import Home from './Home'
+import Profile from './Profile'
+import EditProfile from './EditProfile'
 
 // Actions
 import {onLogin} from '../actions/index'
@@ -37,6 +39,8 @@ class App extends Component {
                    <Route path="/" exact component={Home} />
                    <Route path="/login" component={Login} />
                    <Route path="/register" component={Register} />
+                   <Route path="/profile" component={Profile} />
+                   <Route path="/editprofile" component={EditProfile} />
                 </div>
             </BrowserRouter>
           )
