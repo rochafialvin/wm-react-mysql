@@ -13,10 +13,13 @@ class Login extends Component {
         axios.post('/user/login', {email, password})
          .then(res => {
 
-            let {_id, username} = res.data
+            if(res.data.err_message){
+                return alert(res.data.err_message)
+            }
 
-            
+            let {_id, username} = res.data
             this.props.onLogin({_id, username})
+            
          })
          .catch(err => console.log(err))
     }

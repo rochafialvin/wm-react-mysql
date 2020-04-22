@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import axios from '../config/axios'
+import { Redirect } from 'react-router-dom';
 
 class Home extends Component {
 
@@ -68,18 +69,22 @@ class Home extends Component {
    }
 
    render() { 
-      return (
-         <div className="container">
-            <h1 className="display-4 text-center animated bounce delay-1s">Todo List</h1>
-            <ul className="list-group list-group-flush mb-5">
-               {this.renderList()}
-            </ul>
-            <form onSubmit={this.addTodo} className="form-group mt-5">
-               <input type="text" className="form-control" placeholder="What do you want to do ?" ref={input => this.todo = input}/>
-               <input className="btn btn-block btn-primary mt-3" type="submit" value="Up!"/>
-            </form>
-         </div>
-      );
+      if(this.props._id){
+         return (
+            <div className="container">
+               <h1 className="display-4 text-center animated bounce delay-1s">Todo List</h1>
+               <ul className="list-group list-group-flush mb-5">
+                  {this.renderList()}
+               </ul>
+               <form onSubmit={this.addTodo} className="form-group mt-5">
+                  <input type="text" className="form-control" placeholder="What do you want to do ?" ref={input => this.todo = input}/>
+                  <input className="btn btn-block btn-primary mt-3" type="submit" value="Up!"/>
+               </form>
+            </div>
+         );
+      }
+
+      return <Redirect to='/login'/>
    }
 }
 

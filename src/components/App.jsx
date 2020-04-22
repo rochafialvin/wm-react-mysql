@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, BrowserRouter} from 'react-router-dom'
+import {Route, BrowserRouter, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 
@@ -10,6 +10,7 @@ import Login from './Login'
 import Home from './Home'
 import Profile from './Profile'
 import EditProfile from './EditProfile'
+import NotFound from './NotFound'
 
 // Actions
 import {onLogin} from '../actions/index'
@@ -35,12 +36,12 @@ class App extends Component {
          return(
             <BrowserRouter>
                 <div>
-                   <Header/>
-                   <Route path="/" exact component={Home} />
-                   <Route path="/login" component={Login} />
-                   <Route path="/register" component={Register} />
-                   <Route path="/profile" component={Profile} />
-                   <Route path="/editprofile" component={EditProfile} />
+                  <Header/>
+                  <Route path="/" exact component={Home} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/profile" component={Profile} />
+                  <Route path="/editprofile" component={EditProfile} />
                 </div>
             </BrowserRouter>
           )
