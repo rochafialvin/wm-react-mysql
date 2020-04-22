@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Jumbotron} from 'reactstrap'
 import {connect} from 'react-redux'
 import axios from '../config/axios';
+import { Redirect } from 'react-router-dom';
 
 class Profile extends Component {
 
@@ -18,17 +19,21 @@ class Profile extends Component {
 
 
    render() { 
-      let {_id, username, name , email, age} = this.state.user
+      if(this.props._id){
+         let {_id, username, name , email, age} = this.state.user
 
-      return (
-         <div className="container">
-            <Jumbotron>
-               <img src={this.state.photo} alt={name}/>
-               <h1>Hello, {name}</h1>
-               <p>{name} | {age} | {email}</p>
-            </Jumbotron>
-         </div>
-      );
+         return (
+            <div className="container">
+               <Jumbotron>
+                  <img src={this.state.photo} alt={name}/>
+                  <h1>Hello, {name}</h1>
+                  <p>{name} | {age} | {email}</p>
+               </Jumbotron>
+            </div>
+         );
+      }
+
+      return <Redirect to='/login'/>
    }
 }
 

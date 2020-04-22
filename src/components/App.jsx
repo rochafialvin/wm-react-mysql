@@ -37,11 +37,14 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                   <Header/>
-                  <Route path="/" exact component={Home} />
-                  <Route path="/login" component={Login} />
-                  <Route path="/register" component={Register} />
-                  <Route path="/profile" component={Profile} />
-                  <Route path="/editprofile" component={EditProfile} />
+                  <Switch>
+                     <Route path="/" exact component={Home} />
+                     <Route path="/login" component={Login} />
+                     <Route path="/register" component={Register} />
+                     <Route path="/profile" component={Profile} />
+                     <Route path="/editprofile" component={EditProfile} />
+                     <Route component={NotFound} />
+                  </Switch>
                 </div>
             </BrowserRouter>
           )

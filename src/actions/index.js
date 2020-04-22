@@ -10,6 +10,9 @@ export const onLogin = (user) => {
 }
 
 export const onLogout = () => {
+
+   localStorage.removeItem('user')
+
    return {
       type: 'LOGOUT_SUCCESS'
    }
