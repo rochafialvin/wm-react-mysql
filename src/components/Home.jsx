@@ -14,9 +14,11 @@ class Home extends Component {
    }
 
    getTodos = () => {
-      axios.get(`/todos/${this.props._id}`)
+      if(this.props._id){
+         axios.get(`/todos/${this.props._id}`)
          .then(res => this.setState({todos: res.data}))
          .catch(err => console.log(err))
+      }
    }
 
    addTodo = (e) => {
