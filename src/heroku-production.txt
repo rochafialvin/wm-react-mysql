@@ -1,3 +1,6 @@
+
+0. Install express 
+
 1. Buat file server.js
    - kode yang harus di tulis sudah tertera di file server.js
 
