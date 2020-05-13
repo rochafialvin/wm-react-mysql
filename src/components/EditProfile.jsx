@@ -7,48 +7,62 @@ class EditProfile extends Component {
 
    state = {
       user: {},
-      photo : null
+      photo: ''
    }
 
    componentDidMount() {
-      axios.get(`/user/${this.props._id}`)
-         .then(res => this.setState({user: res.data.user}))
+      const config = { headers: { Authorization : this.props.token } }
+
+      axios.get(`/user/profile`, config)
+         .then(res => this.setState({user: res.data}))
          .catch(err => console.log(err))
    }
 
 
-   update = () => {
-      // Membuat object formData, karena file harus dikirim dalam bentuk formData
-      const data = new FormData()
+   updateData = () => {
+      
+      
 
+      // Kirim ke API
+      const config = { headers: { Authorization : this.props.token } }
+      const body = {
+         name : this.name.value,
+         email : this.email.value,
+         password : this.password.value
+      }
+
+      axios.patch(`/user/profile`, body, config)
+         .then(res => console.log(res.data))
+         .catch(err => console.log(err))
+   }
+
+   updateAvatar = () => {
+      // Membuat object formData, karena file harus dikirim dalam bentuk formData
+      const body = new FormData()
       
       // Gambar yang diambil dari input file, akan ada di property 'files' , 'files' ini berbentuk array
-      let name = this.name.value
-      let email = this.email.value
-      let age = this.age.value
-      let password = this.password.value
       let image = this.image.files[0]
 
       // Data (name, email, password, image) yang sudah berhasil di ambil, akan 'dimasukkan' ke formData
-      data.append("name", name)
-      data.append("email", email)
-      data.append("age", age)
-      data.append("password", password)
-      data.append("avatar", image)
+      body.append("avatar", image)
 
       // Kirim ke API
-      axios.patch(`/user/${this.props._id}`, data)
+      const config = { headers: { Authorization : this.props.token } }
+
+      axios.post(`/user/avatar`, body, config)
          .then(res => console.log(res.data))
          .catch(err => console.log(err))
    }
 
    changeImage = (e) => {
+      // memungkinkan untuk melihat foto setelah kita memilih foto di folder
+      // menyimpan alamatnya di state.photo
       this.setState({photo : URL.createObjectURL(e.target.files[0])})
    }
 
    render() { 
-      if(this.props._id){
-         let {name, email, age} = this.state.user
+      if(this.props.username){
+         let {name, email} = this.state.user
 
          return (
             <div className="container"> 
@@ -65,14 +79,10 @@ class EditProfile extends Component {
                   </div>
 
                   <div className="form-group">
-                     <label>Age</label>
-                     <input className="form-control" type="number" ref={input => this.age = input} defaultValue={age}/>
-                  </div>
-
-                  <div className="form-group">
                      <label>Password</label>
                      <input className="form-control" type="password" ref={input => this.password = input}/>
                   </div>
+                  <input onClick={this.updateData} className="btn btn-outline-primary"  type="button" value="Update data"/>
 
                   <div className="figure-img">
                      <img width="200" src={this.state.photo} />
@@ -81,7 +91,7 @@ class EditProfile extends Component {
                      <input type="file" ref={input => this.image = input} onChange={this.changeImage}/>
                   </div>
 
-                  <input onClick={this.update} className="btn btn-outline-primary"  type="button" value="Update!"/>
+                  <input onClick={this.updateAvatar} className="btn btn-outline-primary"  type="button" value="Update foto"/>
                </form>
 
             </div>
@@ -94,7 +104,8 @@ class EditProfile extends Component {
 
 let mapStateToProps = state => {
    return {
-      _id : state.auth._id
+      username : state.auth.username,
+      token : state.auth.token
    }
 }
  

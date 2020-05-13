@@ -7,27 +7,29 @@ import { Redirect } from 'react-router-dom';
 class Profile extends Component {
 
    state = {
-      user: {},
-      photo: ''
+      user: {}
    }
 
    componentDidMount() {
-      axios.get(`/user/${this.props._id}`)
-         .then(res => this.setState({user: res.data.user, photo: res.data.photo}))
-         .catch(err => console.log(err))
+
+      const config = { headers: { Authorization : this.props.token } }
+
+      axios.get(`/user/profile`, config)
+         .then(res => this.setState({user: res.data}))
+         .catch(err => console.log({err}))
    }
 
 
    render() { 
-      if(this.props._id){
-         let {_id, username, name , email, age} = this.state.user
+      if(this.props.username){
+         let {id, username, name , email, avatar} = this.state.user
 
          return (
             <div className="container">
                <Jumbotron>
-                  <img src={this.state.photo} alt={name}/>
+                  <img src={avatar} alt={name}/>
                   <h1>Hello, {name}</h1>
-                  <p>{name} | {age} | {email}</p>
+                  <p>{username} | {name} | {email}</p>
                </Jumbotron>
             </div>
          );
@@ -39,7 +41,8 @@ class Profile extends Component {
 
 let mapStateToProps = state => {
    return {
-      _id : state.auth._id
+      username: state.auth.username,
+      token : state.auth.token
    }
 }
  
