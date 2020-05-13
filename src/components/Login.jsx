@@ -8,20 +8,23 @@ import {onLogin} from '../actions'
 class Login extends Component {
 
     onButtonClick = () => {
-        const email = this.email.value
+        const username = this.username.value
         const password = this.password.value
-        axios.post('/user/login', {email, password})
+
+        const body = {username, password}
+
+        axios.post('/user/login', body)
          .then(res => {
-
-            if(res.data.err_message){
-                return alert(res.data.err_message)
-            }
-
-            let {_id, username} = res.data
-            this.props.onLogin({_id, username})
+            
+            
+            this.props.onLogin({
+                id: res.data.user.id,
+                username: res.data.user.username,
+                token: res.data.token
+            })
             
          })
-         .catch(err => console.log(err))
+         .catch(err => console.log({err}))
     }
 
     render() {
@@ -34,9 +37,9 @@ class Login extends Component {
                                 <h1>Login</h1>
                             </div>
                             <div className="card-title mt-1">
-                                <h4>Email</h4>
+                                <h4>Username</h4>
                             </div>
-                            <form className="input-group"><input ref={input => this.email = input} className="form-control" type="email"/></form>
+                            <form className="input-group"><input ref={input => this.username = input} className="form-control" type="text"/></form>
                             <div className="card-title mt-1">
                                 <h4>Password</h4>
                             </div>

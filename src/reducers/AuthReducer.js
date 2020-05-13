@@ -1,12 +1,14 @@
 const init = {
-   _id: "",
-   username: ""
+   id: "",
+   username: "",
+   token : ""
 }
+
 
 export default (state = init , action) => {
    switch(action.type) {
       case 'LOGIN_SUCCESS':
-         return {...state, _id: action.payload._id, username: action.payload.username}
+         return {...state, id: action.payload.id, username: action.payload.username, token : action.payload.token}
       case 'LOGOUT_SUCCESS':
          return {...init}
       

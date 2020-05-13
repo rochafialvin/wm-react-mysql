@@ -13,19 +13,28 @@ class Home extends Component {
       this.getTodos()
    }
 
+   // Mengambil semua todo
    getTodos = () => {
-      if(this.props._id){
-         axios.get(`/todos/${this.props._id}`)
+      // jika sudah login
+      if(this.props.username){
+
+         const config = { headers: { Authorization : this.props.token } }
+
+         axios.get(`/todo`, config)
          .then(res => this.setState({todos: res.data}))
-         .catch(err => console.log(err))
+         .catch(err => console.log({err}))
       }
    }
 
    addTodo = (e) => {
       e.preventDefault()
-      axios.post(`/todos/${this.props._id}`, {description: this.todo.value})
+
+      const config = { headers: { Authorization : this.props.token } }
+      const body = { description : this.description.value }
+
+      axios.post(`/todo`, body, config)
          .then(res => this.getTodos())
-         .catch(err => console.log(err))
+         .catch(err => console.log({err}))
    }
 
    toggleTodo = (_id, _completed) => {
@@ -71,7 +80,7 @@ class Home extends Component {
    }
 
    render() { 
-      if(this.props._id){
+      if(this.props.username){
          return (
             <div className="container">
                <h1 className="display-4 text-center animated bounce delay-1s">Todo List</h1>
@@ -79,7 +88,7 @@ class Home extends Component {
                   {this.renderList()}
                </ul>
                <form onSubmit={this.addTodo} className="form-group mt-5">
-                  <input type="text" className="form-control" placeholder="What do you want to do ?" ref={input => this.todo = input}/>
+                  <input type="text" className="form-control" placeholder="What do you want to do ?" ref={input => this.description = input}/>
                   <input className="btn btn-block btn-primary mt-3" type="submit" value="Up!"/>
                </form>
             </div>
@@ -92,7 +101,9 @@ class Home extends Component {
 
 let mapStateToProps = state => {
    return {
-      _id: state.auth._id
+      id: state.auth.id,
+      username: state.auth.username,
+      token : state.auth.token
    }
 }
  

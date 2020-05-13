@@ -1,11 +1,14 @@
 
+// user = {id , username, token}
 export const onLogin = (user) => {
 
-   localStorage.setItem('user', JSON.stringify({...user}))
+   // simpan di local storage
+   localStorage.setItem('user', JSON.stringify(user))
 
+   // kirim ke reducer
    return {
       type: 'LOGIN_SUCCESS',
-      payload: {...user}
+      payload: user
    }
 }
 
