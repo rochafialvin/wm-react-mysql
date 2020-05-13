@@ -1,5 +1,5 @@
 {
-  "name": "mongoose-task",
+  "name": "wm-react-mysql",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,7 +18,7 @@
     "redux": "^4.0.5"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

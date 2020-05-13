@@ -6,49 +6,56 @@ class Register extends Component {
 
    registerUser = (e) => {
       e.preventDefault()
+
       let username = this.username.value
       let name = this.name.value
-      let age = this.age.value
       let email = this.email.value
       let password = this.password.value
 
-      axios.post('/users', {username, name, email, age, password})
+      const body = {
+         username, name, email, password
+      }
+
+      axios.post('/register', body)
          .then(res => {
-            if(res.data.errmsg){
-               let feedback = prompt('Masukkan feedback')
-            }
+            alert(res.data.message)
          })
          .catch(err => {
-            let feedback = prompt('Masukkan feedback')
+            alert(err.response.data.sqlMessage)
          })
   }
 
    render() { 
       return (
-         <form onSubmit={this.registerUser} >
-            <div>
-               username
-               <input ref={(input) => {this.username = input}} type="text"/>
-            </div>
-            <div>
-               name
-               <input ref={(input) => {this.name = input}} type="text"/>
-            </div>
-            <div>
-               age
-               <input ref={(input) => {this.age = input}} type="number"/>
-            </div>
-            <div>
-               email
-               <input ref={(input) => {this.email = input}} type="email"/>
-            </div>
-            <div>
-               password
-               <input ref={(input) => {this.password = input}} type="password"/>
-            </div>
+         <div className=" mt-5 row" >
+            <div className="card col-sm-3 mx-auto" >
+               <div className="card-body" >
+                  <div className="border-bottom border-secondary card-title" >
+                     <h1>Register</h1>
+                  </div>
+                  <form onSubmit={this.registerUser} className="form-group" >
+                     <div>
+                        <h4>username</h4>
+                        <input className="form-control" ref={(input) => {this.username = input}} type="text"/>
+                     </div>
+                     <div>
+                        <h4>name</h4>
+                        <input className="form-control" ref={(input) => {this.name = input}} type="text"/>
+                     </div>
+                     <div>
+                        <h4>email</h4>
+                        <input className="form-control" ref={(input) => {this.email = input}} type="email"/>
+                     </div>
+                     <div>
+                        <h4>password</h4>
+                        <input className="form-control" ref={(input) => {this.password = input}} type="password"/>
+                     </div>
 
-            <input type="submit" value="Register"/>
-         </form>
+                     <input onClick={this.registerUser} className="btn btn-block btn-outline-success mt-2" type="submit" value="Register"/>
+                  </form>
+               </div>
+            </div>
+         </div>
       );
    }
 }
