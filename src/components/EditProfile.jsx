@@ -21,8 +21,6 @@ class EditProfile extends Component {
 
    updateData = () => {
       
-      
-
       // Kirim ke API
       const config = { headers: { Authorization : this.props.token } }
       const body = {
@@ -32,8 +30,8 @@ class EditProfile extends Component {
       }
 
       axios.patch(`/user/profile`, body, config)
-         .then(res => console.log(res.data))
-         .catch(err => console.log(err))
+         .then(res => alert(res.data.message))
+         .catch(err => console.log(err.response.data.message))
    }
 
    updateAvatar = () => {
@@ -50,8 +48,8 @@ class EditProfile extends Component {
       const config = { headers: { Authorization : this.props.token } }
 
       axios.post(`/user/avatar`, body, config)
-         .then(res => console.log(res.data))
-         .catch(err => console.log(err))
+         .then(res => alert(res.data.message))
+         .catch(err => console.log(err.response.data.message))
    }
 
    changeImage = (e) => {

@@ -15,16 +15,16 @@ class Login extends Component {
 
         axios.post('/user/login', body)
          .then(res => {
-            
-            
+             
             this.props.onLogin({
                 id: res.data.user.id,
                 username: res.data.user.username,
                 token: res.data.token
             })
             
+            
          })
-         .catch(err => console.log({err}))
+         .catch(err => alert(err.response.data.message))
     }
 
     render() {
